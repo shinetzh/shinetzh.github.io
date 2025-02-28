@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. Chamfer Distance CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  $$C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min {q \in Q}|p-q|^2+\frac{1}{|Q|} \sum{q \in Q}">
+    <meta name="description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Metrics of 3D Reconstruction">
 <meta property="og:url" content="http://example.com/2025/02/28/metrics-of-3D-reconstruction/index.html">
 <meta property="og:site_name" content="neo&#39;s blog">
-<meta property="og:description" content="1. Chamfer Distance CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  $$C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min {q \in Q}|p-q|^2+\frac{1}{|Q|} \sum{q \in Q}">
+<meta property="og:description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-28T09:24:54.000Z">
-<meta property="article:modified_time" content="2025-02-28T09:28:13.351Z">
+<meta property="article:modified_time" content="2025-02-28T09:29:13.459Z">
 <meta property="article:author" content="neo">
 <meta property="article:tag" content="3DGen">
 <meta property="article:tag" content="3D">
@@ -112,7 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Chamfer-Distance"><span class="nav-number">1.</span> <span class="nav-text">1. Chamfer Distance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-F-Score"><span class="nav-number">2.</span> <span class="nav-text">2. F-Score</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1. 分类模型中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2. 三维重建中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Normal-Consistency"><span class="nav-number">3.</span> <span class="nav-text">3. Normal Consistency</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chamfer-distance"><span class="nav-number">1.</span> <span class="nav-text">1. Chamfer Distance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.0.1.</span> <span class="nav-text">2.2. 三维重建中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#normal-consistency"><span class="nav-number">2.</span> <span class="nav-text">3. Normal Consistency</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -193,7 +193,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-02-28 17:24:54 / 修改时间：17:28:13" itemprop="dateCreated datePublished" datetime="2025-02-28T17:24:54+08:00">2025-02-28</time>
+      <time title="创建时间：2025-02-28 17:24:54 / 修改时间：17:29:13" itemprop="dateCreated datePublished" datetime="2025-02-28T17:24:54+08:00">2025-02-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -214,32 +214,100 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="1-Chamfer-Distance"><a href="#1-Chamfer-Distance" class="headerlink" title="1. Chamfer Distance"></a>1. Chamfer Distance</h1><blockquote>
+    <div class="post-body" itemprop="articleBody"><h1 id="chamfer-distance">1. Chamfer Distance</h1>
+<blockquote>
 <p>CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。</p>
 </blockquote>
-<p>$$<br>C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min <em>{q \in Q}|p-q|^2+\frac{1}{|Q|} \sum</em>{q \in Q} \min _{p \in P}|q-p|^2<br>$$<br>$\min _{q \in Q}|p-q|^2$对点$p$计算它到点云Q中所有点的距离，并取最小值，$\min _{p \in P}|q-p|^2$同理。</p>
-<h1 id="2-F-Score"><a href="#2-F-Score" class="headerlink" title="2. F-Score"></a>2. F-Score</h1><blockquote>
-<p>用来衡量分类算法的好坏，F-Score越大表示分类效果越好。</p>
-</blockquote>
-<h3 id="2-1-分类模型中的应用"><a href="#2-1-分类模型中的应用" class="headerlink" title="2.1. 分类模型中的应用"></a>2.1. 分类模型中的应用</h3><p>经常用在分类模型准确率的评价标准上面。是对准确率和召回率进行加权之后的评价指标。</p>
-<p>$$<br>\begin{aligned}<br>Accuracy &amp;&#x3D; \frac{TP + TN} {TP + FP + TN + FN}<br>\end{aligned} \tag{1}\<br>$$<br>$$<br>\begin{aligned}<br>Precision &amp;&#x3D; \frac {TP} {TP+FP}<br>\end{aligned}) \tag{2}<br>$$</p>
-<p>$$<br>\begin{aligned}<br>Recall &amp;&#x3D; \frac {TP} {TP+FN}<br>\end{aligned} \tag{3}<br>$$</p>
+<p><span class="math display">\[
+C D(P, Q)=\frac{1}{|P|} \sum_{p \in P} \min _{q \in
+Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q} \min _{p \in P}\|q-p\|^2
+\]</span> <span class="math inline">\(\min _{q \in
+Q}\|p-q\|^2\)</span>对点<span
+class="math inline">\(p\)</span>计算它到点云Q中所有点的距离，并取最小值，<span
+class="math inline">\(\min _{p \in P}\|q-p\|^2\)</span>同理。 # 2.
+F-Score &gt;用来衡量分类算法的好坏，F-Score越大表示分类效果越好。 ###
+2.1. 分类模型中的应用
+经常用在分类模型准确率的评价标准上面。是对准确率和召回率进行加权之后的评价指标。</p>
+<p><span class="math display">\[
+\begin{aligned}
+Accuracy &amp;= \frac{TP + TN} {TP + FP + TN + FN}
+\end{aligned} \tag{1}\\
+\]</span> <span class="math display">\[
+\begin{aligned}
+Precision &amp;= \frac {TP} {TP+FP}
+\end{aligned}) \tag{2}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+Recall &amp;= \frac {TP} {TP+FN}
+\end{aligned} \tag{3}
+\]</span> - <span class="math inline">\(Accuracy\)</span>
+表示模型预测的准确率，包括正样本和负样本。 - <span
+class="math inline">\(Precision\)</span>
+表示所有预测为正的样本中真实正样本的比例。 - <span
+class="math inline">\(Recall\)</span>
+表示所有真实的正样本中有多少被预测为正样本。 <span
+class="math display">\[
+\begin{aligned}
+\frac {2} {F_{score}} &amp;= \frac {1} {precision} + \frac {1} {recall}
+\\
+F_{score} &amp;= \frac {2 \times precision \times recall} {precision +
+recall} \\
+&amp;= \frac {2TP} {2TP + FP + FN}
+\end{aligned} \tag{4}
+\]</span></p>
+<p>通用的<span class="math inline">\(F_{score}\)</span>可以表示如下：
+<span class="math display">\[
+\begin{aligned}
+F_{score} = \frac {(1 + \alpha ^ 2) \times precision \times recall}
+{\alpha^2 \times precision + recall}
+\end{aligned} \tag{5}
+\]</span></p>
 <ul>
-<li>$Accuracy$ 表示模型预测的准确率，包括正样本和负样本。</li>
-<li>$Precision$ 表示所有预测为正的样本中真实正样本的比例。</li>
-<li>$Recall$ 表示所有真实的正样本中有多少被预测为正样本。<br>$$<br>\begin{aligned}<br>\frac {2} {F_{score}} &amp;&#x3D; \frac {1} {precision} + \frac {1} {recall} \<br>F_{score} &amp;&#x3D; \frac {2 \times precision \times recall} {precision + recall} \<br>&amp;&#x3D; \frac {2TP} {2TP + FP + FN}<br>\end{aligned} \tag{4}<br>$$</li>
+<li>当<span class="math inline">\(\alpha == 1\)</span>时， <span
+class="math inline">\(F_{score}\)</span> 被叫做<span
+class="math inline">\(F1_{score}\)</span>， 是<span
+class="math inline">\(Precision\)</span> 和 <span
+class="math inline">\(Recall\)</span>
+的调和平均值，既表示两者同等重要。</li>
+<li>当<span class="math inline">\(\alpha &gt; 1\)</span>时
+，我们认为<span class="math inline">\(Recall\)</span> 更重要。</li>
+<li>当<span class="math inline">\(\alpha&lt;1\)</span> 时，
+我们认为<span class="math inline">\(Precision\)</span> 更重要。</li>
 </ul>
-<p>通用的$F_{score}$可以表示如下：<br>$$<br>\begin{aligned}<br>F_{score} &#x3D; \frac {(1 + \alpha ^ 2) \times precision \times recall} {\alpha^2 \times precision + recall}<br>\end{aligned} \tag{5}<br>$$</p>
-<ul>
-<li>当$\alpha &#x3D;&#x3D; 1$时， $F_{score}$ 被叫做$F1_{score}$， 是$Precision$ 和 $Recall$ 的调和平均值，既表示两者同等重要。</li>
-<li>当$\alpha &gt; 1$时 ，我们认为$Recall$ 更重要。</li>
-<li>当$\alpha&lt;1$ 时， 我们认为$Precision$ 更重要。</li>
-</ul>
-<h3 id="2-2-三维重建中的应用"><a href="#2-2-三维重建中的应用" class="headerlink" title="2.2. 三维重建中的应用"></a>2.2. 三维重建中的应用</h3><p>在三维重建中， $Precision$ 表示在重建模型中的点云能够被参考模型中的点云匹配的概率，也就是重建模型点云中能够被参考模型匹配的点的数量除以重建模型中所有点的个数，如公式(6) 所示，其中$|P|$ 表示重建模型中所有的点云数量:<br>$$<br>Precision &#x3D;\frac{1}{|P|} \sum_{p \in P} 1\left(\min <em>{q \in Q}|p-q|&lt;\tau\right) \tag{6}<br>$$<br>$Recall$ 表示参考模型中所有点云能够被重建模型的点云匹配的概率，如公式 (7)所示:<br>$$<br>Recall&#x3D;\frac{1}{|Q|} \sum</em>{q \in Q} 1\left(\min <em>{p \in P}|q-p|&lt;\tau\right) \tag{7}<br>$$<br>$F</em>{score}$计算公式和（5）式相同。</p>
-<h1 id="3-Normal-Consistency"><a href="#3-Normal-Consistency" class="headerlink" title="3. Normal Consistency"></a>3. Normal Consistency</h1><blockquote>
+<h3 id="三维重建中的应用">2.2. 三维重建中的应用</h3>
+<p>在三维重建中， <span class="math inline">\(Precision\)</span>
+表示在重建模型中的点云能够被参考模型中的点云匹配的概率，也就是重建模型点云中能够被参考模型匹配的点的数量除以重建模型中所有点的个数，如公式(6)
+所示，其中<span class="math inline">\(|P|\)</span>
+表示重建模型中所有的点云数量: <span class="math display">\[
+Precision =\frac{1}{|P|} \sum_{p \in P} 1\left(\min _{q \in
+Q}\|p-q\|&lt;\tau\right) \tag{6}
+\]</span> <span class="math inline">\(Recall\)</span>
+表示参考模型中所有点云能够被重建模型的点云匹配的概率，如公式 (7)所示:
+<span class="math display">\[
+Recall=\frac{1}{|Q|} \sum_{q \in Q} 1\left(\min _{p \in
+P}\|q-p\|&lt;\tau\right) \tag{7}
+\]</span> <span
+class="math inline">\(F_{score}\)</span>计算公式和（5）式相同。</p>
+<h1 id="normal-consistency">3. Normal Consistency</h1>
+<blockquote>
 <p>用来评估两个模型表面法向量的一致性，值越接近1，表明两个模型越相似。</p>
 </blockquote>
-<p>$$<br>N C&#x3D;\frac{1}{|P|} \sum_{p \in P} \max _{q \in Q}\left(n_p \cdot n_q\right)<br>$$<br>$\max _{q \in Q}\left(n_p \cdot n_q\right)$ 表示对于点云$P$中的一个点$p$，找到点云$Q$ 中 和其最相近的点$q$，并计算这两个点的法线$n_p, n_q$的点积。Normal Consistency等于所有法线点积的加和平均。其中 $-1 &lt; n_p \cdot n_q &lt; 1$，当$n_p \cdot n_q &#x3D;&#x3D; 1$ 表示两个法线方向完全一致。当$n_p \cdot n_q &#x3D;&#x3D; -1$表示两个法线方向完全相反。</p>
+<p><span class="math display">\[
+N C=\frac{1}{|P|} \sum_{p \in P} \max _{q \in Q}\left(n_p \cdot
+n_q\right)
+\]</span> <span class="math inline">\(\max _{q \in Q}\left(n_p \cdot
+n_q\right)\)</span> 表示对于点云<span
+class="math inline">\(P\)</span>中的一个点<span
+class="math inline">\(p\)</span>，找到点云<span
+class="math inline">\(Q\)</span> 中 和其最相近的点<span
+class="math inline">\(q\)</span>，并计算这两个点的法线<span
+class="math inline">\(n_p, n_q\)</span>的点积。Normal
+Consistency等于所有法线点积的加和平均。其中 <span
+class="math inline">\(-1 &lt; n_p \cdot n_q &lt; 1\)</span>，当<span
+class="math inline">\(n_p \cdot n_q == 1\)</span>
+表示两个法线方向完全一致。当<span class="math inline">\(n_p \cdot n_q ==
+-1\)</span>表示两个法线方向完全相反。</p>
 
     </div>
 
@@ -324,6 +392,12 @@
   
 
 
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"ams","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
 
 
 
