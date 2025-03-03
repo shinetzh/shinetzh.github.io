@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="3D重建中几何重建质量的评价指标 1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|">
+    <meta name="description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Metrics of 3D Reconstruction">
 <meta property="og:url" content="http://example.com/2025/02/28/metrics-of-3D-reconstruction/index.html">
 <meta property="og:site_name" content="neo&#39;s blog">
-<meta property="og:description" content="3D重建中几何重建质量的评价指标 1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|">
+<meta property="og:description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-02-28T09:24:54.000Z">
-<meta property="article:modified_time" content="2025-03-03T09:32:24.941Z">
+<meta property="article:modified_time" content="2025-03-03T09:45:18.567Z">
 <meta property="article:author" content="neo">
 <meta property="article:tag" content="3DGen">
 <meta property="article:tag" content="3D">
@@ -113,7 +113,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#d%E9%87%8D%E5%BB%BA%E4%B8%AD%E5%87%A0%E4%BD%95%E9%87%8D%E5%BB%BA%E8%B4%A8%E9%87%8F%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">3D重建中几何重建质量的评价指标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chamfer-distance"><span class="nav-number">2.</span> <span class="nav-text">1. Chamfer Distance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#f-score"><span class="nav-number">3.</span> <span class="nav-text">2. F-Score</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.0.1.</span> <span class="nav-text">2.1. 分类模型中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.2. 三维重建中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#normal-consistency"><span class="nav-number">4.</span> <span class="nav-text">3. Normal Consistency</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chamfer-distance"><span class="nav-number">1.</span> <span class="nav-text">1. Chamfer Distance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#f-score"><span class="nav-number">2.</span> <span class="nav-text">2. F-Score</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1. 分类模型中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2. 三维重建中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#normal-consistency"><span class="nav-number">3.</span> <span class="nav-text">3. Normal Consistency</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -200,7 +200,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-03 17:32:24" itemprop="dateModified" datetime="2025-03-03T17:32:24+08:00">2025-03-03</time>
+      <time title="修改时间：2025-03-03 17:45:18" itemprop="dateModified" datetime="2025-03-03T17:45:18+08:00">2025-03-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -221,15 +221,14 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1
-id="d重建中几何重建质量的评价指标">3D重建中几何重建质量的评价指标</h1>
-<h1 id="chamfer-distance">1. Chamfer Distance</h1>
+    <div class="post-body" itemprop="articleBody"><h1 id="chamfer-distance">1. Chamfer Distance</h1>
 <blockquote>
 <p>CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。</p>
 </blockquote>
 <p><span class="math display">\[
 C D(P, Q)=\frac{1}{|P|} \sum_{p \in P} \min _{q \in
 Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q} \min _{p \in P}\|q-p\|^2
+\tag{1}\\
 \]</span> <span class="math inline">\(\min _{q \in
 Q}\|p-q\|^2\)</span>对点<span
 class="math inline">\(p\)</span>计算它到点云Q中所有点的距离，并取最小值，<span
@@ -243,16 +242,16 @@ class="math inline">\(\min _{p \in P}\|q-p\|^2\)</span>同理。</p>
 <p><span class="math display">\[
 \begin{aligned}
 Accuracy &amp;= \frac{TP + TN} {TP + FP + TN + FN}
-\end{aligned} \tag{1}\\
+\end{aligned} \tag{2}\\
 \]</span> <span class="math display">\[
 \begin{aligned}
 Precision &amp;= \frac {TP} {TP+FP}
-\end{aligned}) \tag{2}
+\end{aligned}) \tag{3}
 \]</span></p>
 <p><span class="math display">\[
 \begin{aligned}
 Recall &amp;= \frac {TP} {TP+FN}
-\end{aligned} \tag{3}
+\end{aligned} \tag{4}
 \]</span> - <span class="math inline">\(Accuracy\)</span>
 表示模型预测的准确率，包括正样本和负样本。 - <span
 class="math inline">\(Precision\)</span>
@@ -266,14 +265,14 @@ class="math display">\[
 F_{score} &amp;= \frac {2 \times precision \times recall} {precision +
 recall} \\
 &amp;= \frac {2TP} {2TP + FP + FN}
-\end{aligned} \tag{4}
+\end{aligned} \tag{5}
 \]</span></p>
 <p>通用的<span class="math inline">\(F_{score}\)</span>可以表示如下：
 <span class="math display">\[
 \begin{aligned}
 F_{score} = \frac {(1 + \alpha ^ 2) \times precision \times recall}
 {\alpha^2 \times precision + recall}
-\end{aligned} \tag{5}
+\end{aligned} \tag{6}
 \]</span></p>
 <ul>
 <li>当<span class="math inline">\(\alpha == 1\)</span>时， <span
@@ -293,14 +292,14 @@ class="math inline">\(Recall\)</span>
 所示，其中<span class="math inline">\(|P|\)</span>
 表示重建模型中所有的点云数量: <span class="math display">\[
 Precision =\frac{1}{|P|} \sum_{p \in P} 1\left(\min _{q \in
-Q}\|p-q\|&lt;\tau\right) \tag{6}
+Q}\|p-q\|&lt;\tau\right) \tag{7}
 \]</span> <span class="math inline">\(Recall\)</span>
 表示参考模型中所有点云能够被重建模型的点云匹配的概率，如公式 (7)所示:
 <span class="math display">\[
 Recall=\frac{1}{|Q|} \sum_{q \in Q} 1\left(\min _{p \in
-P}\|q-p\|&lt;\tau\right) \tag{7}
+P}\|q-p\|&lt;\tau\right) \tag{8}
 \]</span> <span
-class="math inline">\(F_{score}\)</span>计算公式和（5）式相同。</p>
+class="math inline">\(F_{score}\)</span>计算公式和（6）式相同。</p>
 <h1 id="normal-consistency">3. Normal Consistency</h1>
 <blockquote>
 <p>用来评估两个模型表面法向量的一致性，值越接近1，表明两个模型越相似。</p>
