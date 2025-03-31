@@ -19,29 +19,27 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
+    <meta name="description" content="123456789101112131415161718192021222324252627class CausalConv3d(nn.Module):    &quot;&quot;&quot;    Implements a causal 3D convolution layer where each position only depends on previous timesteps and">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Metrics of 3D Reconstruction">
-<meta property="og:url" content="http://example.com/2025/02/28/metrics-of-3D-reconstruction/index.html">
+<meta property="og:title" content="CauselConv3d">
+<meta property="og:url" content="http://example.com/2025/03/31/CauselConv3d/index.html">
 <meta property="og:site_name" content="neo&#39;s blog">
-<meta property="og:description" content="1. Chamfer Distance  CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。  \[ C D(P, Q)&#x3D;\frac{1}{|P|} \sum_{p \in P} \min _{q \in Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q">
+<meta property="og:description" content="123456789101112131415161718192021222324252627class CausalConv3d(nn.Module):    &quot;&quot;&quot;    Implements a causal 3D convolution layer where each position only depends on previous timesteps and">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-02-28T09:24:54.000Z">
-<meta property="article:modified_time" content="2025-03-03T09:45:18.567Z">
+<meta property="article:published_time" content="2025-03-31T07:25:11.000Z">
+<meta property="article:modified_time" content="2025-03-31T07:29:18.010Z">
 <meta property="article:author" content="neo">
-<meta property="article:tag" content="3DGen">
-<meta property="article:tag" content="3D">
-<meta property="article:tag" content="Metrics">
+<meta property="article:tag" content="VideoGen">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2025/02/28/metrics-of-3D-reconstruction/">
+<link rel="canonical" href="http://example.com/2025/03/31/CauselConv3d/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/02/28/metrics-of-3D-reconstruction/","path":"2025/02/28/metrics-of-3D-reconstruction/","title":"Metrics of 3D Reconstruction"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2025/03/31/CauselConv3d/","path":"2025/03/31/CauselConv3d/","title":"CauselConv3d"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Metrics of 3D Reconstruction | neo's blog</title>
+<title>CauselConv3d | neo's blog</title>
   
 
 
@@ -100,7 +98,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -113,7 +111,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chamfer-distance"><span class="nav-number">1.</span> <span class="nav-text">1. Chamfer Distance</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#f-score"><span class="nav-number">2.</span> <span class="nav-text">2. F-Score</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1. 分类模型中的应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2. 三维重建中的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#normal-consistency"><span class="nav-number">3.</span> <span class="nav-text">3. Normal Consistency</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -164,7 +161,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2025/02/28/metrics-of-3D-reconstruction/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/CauselConv3d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -177,12 +174,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Metrics of 3D Reconstruction | neo's blog">
+      <meta itemprop="name" content="CauselConv3d | neo's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Metrics of 3D Reconstruction
+          CauselConv3d
         </h1>
 
         <div class="post-meta-container">
@@ -192,15 +189,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2025-02-28 17:24:54" itemprop="dateCreated datePublished" datetime="2025-02-28T17:24:54+08:00">2025-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-03 17:45:18" itemprop="dateModified" datetime="2025-03-03T17:45:18+08:00">2025-03-03</time>
+      <time title="创建时间：2025-03-31 15:25:11 / 修改时间：15:29:18" itemprop="dateCreated datePublished" datetime="2025-03-31T15:25:11+08:00">2025-03-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -208,7 +199,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/3DGen/" itemprop="url" rel="index"><span itemprop="name">3DGen</span></a>
+          <a href="/categories/VideoGen/" itemprop="url" rel="index"><span itemprop="name">VideoGen</span></a>
         </span>
     </span>
 
@@ -221,104 +212,30 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h1 id="chamfer-distance">1. Chamfer Distance</h1>
+    <div class="post-body" itemprop="articleBody"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CausalConv3d</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Implements a causal 3D convolution layer where each position only depends on previous timesteps and current spatial locations.</span></span><br><span class="line"><span class="string">    This maintains temporal causality in video generation tasks.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        chan_in,</span></span><br><span class="line"><span class="params">        chan_out,</span></span><br><span class="line"><span class="params">        kernel_size: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]],</span></span><br><span class="line"><span class="params">        stride: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]] = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        dilation: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]] = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        pad_mode=<span class="string">&#x27;replicate&#x27;</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.pad_mode = pad_mode</span><br><span class="line">        padding = (kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size - <span class="number">1</span>, <span class="number">0</span>)  <span class="comment"># W, H, T</span></span><br><span class="line">        <span class="variable language_">self</span>.time_causal_padding = padding</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.conv = nn.Conv3d(chan_in, chan_out, kernel_size, stride=stride, dilation=dilation, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = F.pad(x, <span class="variable language_">self</span>.time_causal_padding, mode=<span class="variable language_">self</span>.pad_mode)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.conv(x)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>CD用来衡量两个点云的差异，距离越小两个点云越相似。计算点云P到点云Q的平均最近距离，并且反过来计算点云P到点云Q的平均距离。再进行相加，对前后顺序不敏感，是对称的。</p>
+<p>通过在<span class="math inline">\(conv3d\)</span>的输入中增加<span
+class="math inline">\(padding\)</span>实现<span
+class="math inline">\(causalConv3d\)</span>。为什么只是通过增加<span
+class="math inline">\(padding\)</span>就可以实现causal的目的呢？</p>
 </blockquote>
-<p><span class="math display">\[
-C D(P, Q)=\frac{1}{|P|} \sum_{p \in P} \min _{q \in
-Q}\|p-q\|^2+\frac{1}{|Q|} \sum_{q \in Q} \min _{p \in P}\|q-p\|^2
-\tag{1}\\
-\]</span> <span class="math inline">\(\min _{q \in
-Q}\|p-q\|^2\)</span>对点<span
-class="math inline">\(p\)</span>计算它到点云Q中所有点的距离，并取最小值，<span
-class="math inline">\(\min _{p \in P}\|q-p\|^2\)</span>同理。</p>
-<h1 id="f-score">2. F-Score</h1>
-<blockquote>
-<p>用来衡量分类算法的好坏，F-Score越大表示分类效果越好。</p>
-</blockquote>
-<h3 id="分类模型中的应用">2.1. 分类模型中的应用</h3>
-<p>经常用在分类模型准确率的评价标准上面。是对准确率和召回率进行加权之后的评价指标。</p>
-<p><span class="math display">\[
-\begin{aligned}
-Accuracy &amp;= \frac{TP + TN} {TP + FP + TN + FN}
-\end{aligned} \tag{2}\\
-\]</span> <span class="math display">\[
-\begin{aligned}
-Precision &amp;= \frac {TP} {TP+FP}
-\end{aligned}) \tag{3}
-\]</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-Recall &amp;= \frac {TP} {TP+FN}
-\end{aligned} \tag{4}
-\]</span> - <span class="math inline">\(Accuracy\)</span>
-表示模型预测的准确率，包括正样本和负样本。 - <span
-class="math inline">\(Precision\)</span>
-表示所有预测为正的样本中真实正样本的比例。 - <span
-class="math inline">\(Recall\)</span>
-表示所有真实的正样本中有多少被预测为正样本。 <span
-class="math display">\[
-\begin{aligned}
-\frac {2} {F_{score}} &amp;= \frac {1} {precision} + \frac {1} {recall}
-\\
-F_{score} &amp;= \frac {2 \times precision \times recall} {precision +
-recall} \\
-&amp;= \frac {2TP} {2TP + FP + FN}
-\end{aligned} \tag{5}
-\]</span></p>
-<p>通用的<span class="math inline">\(F_{score}\)</span>可以表示如下：
-<span class="math display">\[
-\begin{aligned}
-F_{score} = \frac {(1 + \alpha ^ 2) \times precision \times recall}
-{\alpha^2 \times precision + recall}
-\end{aligned} \tag{6}
-\]</span></p>
-<ul>
-<li>当<span class="math inline">\(\alpha == 1\)</span>时， <span
-class="math inline">\(F_{score}\)</span> 被叫做<span
-class="math inline">\(F1_{score}\)</span>， 是<span
-class="math inline">\(Precision\)</span> 和 <span
-class="math inline">\(Recall\)</span>
-的调和平均值，既表示两者同等重要。</li>
-<li>当<span class="math inline">\(\alpha &gt; 1\)</span>时
-，我们认为<span class="math inline">\(Recall\)</span> 更重要。</li>
-<li>当<span class="math inline">\(\alpha&lt;1\)</span> 时，
-我们认为<span class="math inline">\(Precision\)</span> 更重要。</li>
-</ul>
-<h3 id="三维重建中的应用">2.2. 三维重建中的应用</h3>
-<p>在三维重建中， <span class="math inline">\(Precision\)</span>
-表示在重建模型中的点云能够被参考模型中的点云匹配的概率，也就是重建模型点云中能够被参考模型匹配的点的数量除以重建模型中所有点的个数，如公式(6)
-所示，其中<span class="math inline">\(|P|\)</span>
-表示重建模型中所有的点云数量: <span class="math display">\[
-Precision =\frac{1}{|P|} \sum_{p \in P} 1\left(\min _{q \in
-Q}\|p-q\|&lt;\tau\right) \tag{7}
-\]</span> <span class="math inline">\(Recall\)</span>
-表示参考模型中所有点云能够被重建模型的点云匹配的概率，如公式 (7)所示:
-<span class="math display">\[
-Recall=\frac{1}{|Q|} \sum_{q \in Q} 1\left(\min _{p \in
-P}\|q-p\|&lt;\tau\right) \tag{8}
-\]</span> <span
-class="math inline">\(F_{score}\)</span>计算公式和（6）式相同。</p>
-<h1 id="normal-consistency">3. Normal Consistency</h1>
-<blockquote>
-<p>用来评估两个模型表面法向量的一致性，值越接近1，表明两个模型越相似。</p>
-</blockquote>
-<p><span class="math display">\[
-N C=\frac{1}{|P|} \sum_{p \in P} \max _{q \in Q}\left(n_p \cdot
-n_q\right)
-\]</span> <span class="math inline">\(\max _{q \in Q}\left(n_p \cdot
-n_q\right)\)</span> 表示对于点云<span
-class="math inline">\(P\)</span>中的一个点<span
-class="math inline">\(p\)</span>，找到点云<span
-class="math inline">\(Q\)</span> 中 和其最相近的点<span
-class="math inline">\(q\)</span>，并计算这两个点的法线<span
-class="math inline">\(n_p, n_q\)</span>的点积。Normal
-Consistency等于所有法线点积的加和平均。其中 <span
-class="math inline">\(-1 &lt; n_p \cdot n_q &lt; 1\)</span>，当<span
-class="math inline">\(n_p \cdot n_q == 1\)</span>
-表示两个法线方向完全一致。当<span class="math inline">\(n_p \cdot n_q ==
--1\)</span>表示两个法线方向完全相反。</p>
+<p>具体看在时间序列T维度的<span
+class="math inline">\(padding\)</span>方式，在前面增加了<span
+class="math inline">\(kernel\_size-1\)</span>个<span
+class="math inline">\(padding\)</span>，在之后增加0个<span
+class="math inline">\(padding\)</span>。那么在卷积生成第0帧的<span
+class="math inline">\(feature\)</span>时，<span
+class="math inline">\(conv\)</span>卷积核只能看到前面<span
+class="math inline">\(padding\)</span>的<span
+class="math inline">\(kernel\_size-1\)</span>个<span
+class="math inline">\(padding\)</span>，以及0帧的<span
+class="math inline">\(feature\)</span>。同样在卷积生成第1帧的<span
+class="math inline">\(feature\)</span>时，<span
+class="math inline">\(conv\)</span>卷积核只能看到<span
+class="math inline">\(kernel\_size-2\)</span>个<span
+class="math inline">\(padding\)</span>，以及0、1帧的<span
+class="math inline">\(feature\)</span>。这样就实现了<span
+class="math inline">\(conv3d\)</span>只依赖前面帧的目的。</p>
 
     </div>
 
@@ -328,20 +245,18 @@ class="math inline">\(n_p \cdot n_q == 1\)</span>
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/3DGen/" rel="tag"># 3DGen</a>
-              <a href="/tags/3D/" rel="tag"># 3D</a>
-              <a href="/tags/Metrics/" rel="tag"># Metrics</a>
+              <a href="/tags/VideoGen/" rel="tag"># VideoGen</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2025/02/28/metrics-of-3D-reconstruction/" rel="prev" title="Metrics of 3D Reconstruction">
+                  <i class="fa fa-angle-left"></i> Metrics of 3D Reconstruction
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2025/03/31/CauselConv3d/" rel="next" title="CauselConv3d">
-                  CauselConv3d <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>

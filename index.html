@@ -118,18 +118,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -146,6 +146,108 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/03/31/CauselConv3d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="neo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="neo's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | neo's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/03/31/CauselConv3d/" class="post-title-link" itemprop="url">CauselConv3d</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2025-03-31 15:25:11 / 修改时间：15:29:18" itemprop="dateCreated datePublished" datetime="2025-03-31T15:25:11+08:00">2025-03-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/VideoGen/" itemprop="url" rel="index"><span itemprop="name">VideoGen</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">CausalConv3d</span>(nn.Module):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Implements a causal 3D convolution layer where each position only depends on previous timesteps and current spatial locations.</span></span><br><span class="line"><span class="string">    This maintains temporal causality in video generation tasks.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        chan_in,</span></span><br><span class="line"><span class="params">        chan_out,</span></span><br><span class="line"><span class="params">        kernel_size: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]],</span></span><br><span class="line"><span class="params">        stride: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]] = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        dilation: <span class="type">Union</span>[<span class="built_in">int</span>, <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]] = <span class="number">1</span>,</span></span><br><span class="line"><span class="params">        pad_mode=<span class="string">&#x27;replicate&#x27;</span>,</span></span><br><span class="line"><span class="params">        **kwargs</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.pad_mode = pad_mode</span><br><span class="line">        padding = (kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size // <span class="number">2</span>, kernel_size - <span class="number">1</span>, <span class="number">0</span>)  <span class="comment"># W, H, T</span></span><br><span class="line">        <span class="variable language_">self</span>.time_causal_padding = padding</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.conv = nn.Conv3d(chan_in, chan_out, kernel_size, stride=stride, dilation=dilation, **kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = F.pad(x, <span class="variable language_">self</span>.time_causal_padding, mode=<span class="variable language_">self</span>.pad_mode)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.conv(x)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过在<span class="math inline">\(conv3d\)</span>的输入中增加<span
+class="math inline">\(padding\)</span>实现<span
+class="math inline">\(causalConv3d\)</span>。为什么只是通过增加<span
+class="math inline">\(padding\)</span>就可以实现causal的目的呢？</p>
+</blockquote>
+<p>具体看在时间序列T维度的<span
+class="math inline">\(padding\)</span>方式，在前面增加了<span
+class="math inline">\(kernel\_size-1\)</span>个<span
+class="math inline">\(padding\)</span>，在之后增加0个<span
+class="math inline">\(padding\)</span>。那么在卷积生成第0帧的<span
+class="math inline">\(feature\)</span>时，<span
+class="math inline">\(conv\)</span>卷积核只能看到前面<span
+class="math inline">\(padding\)</span>的<span
+class="math inline">\(kernel\_size-1\)</span>个<span
+class="math inline">\(padding\)</span>，以及0帧的<span
+class="math inline">\(feature\)</span>。同样在卷积生成第1帧的<span
+class="math inline">\(feature\)</span>时，<span
+class="math inline">\(conv\)</span>卷积核只能看到<span
+class="math inline">\(kernel\_size-2\)</span>个<span
+class="math inline">\(padding\)</span>，以及0、1帧的<span
+class="math inline">\(feature\)</span>。这样就实现了<span
+class="math inline">\(conv3d\)</span>只依赖前面帧的目的。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
